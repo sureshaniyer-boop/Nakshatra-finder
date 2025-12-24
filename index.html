@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#1F4E79" />
+  <title>Nakshatra 7th & 22nd Finder</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { margin: 0; background:#f6f8fb; color:#0f172a; }
+    header { background:#1F4E79; color:#fff; padding:16px; }
+    header h1 { margin:0; font-size:18px; }
+    header p { margin:6px 0 0; opacity:.9; font-size:13px; }
+    main { padding:16px; max-width:720px; margin:0 auto; }
+    .card { background:#fff; border-radius:12px; padding:14px; box-shadow:0 1px 8px rgba(0,0,0,.06); margin-bottom:12px; }
+    label { font-weight:600; display:block; margin-bottom:8px; }
+    select, button { width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:10px; font-size:16px; }
+    button { background:#0f766e; color:#fff; border:none; font-weight:700; margin-top:10px; }
+    button:active { transform: translateY(1px); }
+    .grid { display:grid; grid-template-columns:1fr; gap:10px; }
+    .result { padding:12px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc; }
+    .result .k { font-size:12px; opacity:.8; }
+    .result .v { font-size:18px; font-weight:800; margin-top:4px; }
+    .small { font-size:12px; opacity:.8; margin-top:8px; }
+    table { width:100%; border-collapse: collapse; margin-top:10px; }
+    th, td { border:1px solid #e2e8f0; padding:8px; text-align:left; font-size:13px; }
+    th { background:#eef3f8; }
+    .toggle { display:flex; gap:10px; align-items:center; }
+    .toggle input { width:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nakshatra 7th & 22nd Finder (Tamil List)</h1>
+    <p>Select any nakshatra → it returns the 7th and 22nd (wraps after Revathi back to Aswini).</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <label for="nak">Select Nakshatra (Tamil)</label>
+      <select id="nak"></select>
+
+      <div class="grid" style="margin-top:12px;">
+        <div class="result">
+          <div class="k">7th Nakshatra from input</div>
+          <div class="v" id="out7">—</div>
+          <div class="small" id="out7no"></div>
+        </div>
+        <div class="result">
+          <div class="k">22nd Nakshatra from input</div>
+          <div class="v" id="out22">—</div>
+          <div class="small" id="out22no"></div>
+        </div>
+      </div>
+
+      <div class="toggle" style="margin-top:10px;">
+        <input type="checkbox" id="showTable" />
+        <label for="showTable" style="margin:0; font-weight:600;">Show full 1–27 Tara table</label>
+      </div>
+
+      <button id="btnCalc">Calculate</button>
+
+      <div class="small">
+        Tara cycle used: Janma, Sampat, Vipat, Kshema, Pratyari, Sadhaka, Vadha, Mitra, Parama Mitra (repeats).
+      </div>
+    </div>
+
+    <div class="card" id="tableCard" style="display:none;">
+      <div style="font-weight:800; margin-bottom:6px;">Tara Bala Table (from selected nakshatra)</div>
+      <div style="overflow:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Nakshatra No</th>
+              <th>Nakshatra (Tamil)</th>
+              <th>Tara</th>
+            </tr>
+          </thead>
+          <tbody id="taraBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Your Tamil transliteration list (exact order 1..27)
+    const nakshatras = [
+      "Aswini","Bharani","Karthigai","Rohini","Mrigasirsham","Thiruvathirai","Punarpoosam",
+      "Poosam","Ayilyam","Magam","Pooram","Uthiram","Hastham","Chithirai","Swathi",
+      "Visagam","Anusham","Kettai","Moolam","Pooradam","Uthradam","Thiruvonam",
+      "Avittam","Sadayam","Poorattathi","Uthirattathi","Revathi"
+    ];
+
+    const tara = [
+      "Janma (1)","Sampat (2)","Vipat (3)","Kshema (4)","Pratyari (5)",
+      "Sadhaka (6)","Vadha (7)","Mitra (8)","Parama Mitra (9)"
+    ];
+
+    const sel = document.getElementById("nak");
+    const out7 = document.getElementById("out7");
+    const out22 = document.getElementById("out22");
+    const out7no = document.getElementById("out7no");
+    const out22no = document.getElementById("out22no");
+    const btn = document.getElementById("btnCalc");
+    const showTable = document.getElementById("showTable");
+    const tableCard = document.getElementById("tableCard");
+    const taraBody = document.getElementById("taraBody");
+
+    // Populate dropdown
+    nakshatras.forEach((n, i) => {
+      const opt = document.createElement("option");
+      opt.value = i; // 0-based
+      opt.textContent = n;
+      sel.appendChild(opt);
+    });
+
+    // Default selection
+    sel.value = 0;
+
+    function mod(n, m) { return ((n % m) + m) % m; }
+
+    function calc() {
+      const n0 = parseInt(sel.value, 10); // 0-based input index
+      const idx7  = mod(n0 + 6, 27);      // 7th = +6
+      const idx22 = mod(n0 + 21, 27);     // 22nd = +21
+
+      out7.textContent = nakshatras[idx7];
+      out22.textContent = nakshatras[idx22];
+
+      out7no.textContent = `No: ${idx7 + 1}`;
+      out22no.textContent = `No: ${idx22 + 1}`;
+
+      // Tara table (1..27)
+      taraBody.innerHTML = "";
+      for (let pos = 1; pos <= 27; pos++) {
+        const idx = mod(n0 + (pos - 1), 27);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${pos}</td>
+          <td>${idx + 1}</td>
+          <td>${nakshatras[idx]}</td>
+          <td>${tara[mod(pos - 1, 9)]}</td>
+        `;
+        taraBody.appendChild(tr);
+      }
+
+      tableCard.style.display = showTable.checked ? "block" : "none";
+    }
+
+    btn.addEventListener("click", calc);
+    showTable.addEventListener("change", () => {
+      tableCard.style.display = showTable.checked ? "block" : "none";
+    });
+
+    // Auto-calc once
+    calc();
+
+    // Register service worker (offline support) when hosted over https
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
