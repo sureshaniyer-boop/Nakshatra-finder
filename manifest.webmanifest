@@ -1,0 +1,19 @@
+{
+  "name": "Nakshatra 7th and 22nd Finder",
+  "short_name": "Nakshatra Finder",
+  "description": "Tamil nakshatra 7th and 22nd finder with Tara Bala, body part, and sex reference.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef4ef",
+  "theme_color": "#0f5132",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
