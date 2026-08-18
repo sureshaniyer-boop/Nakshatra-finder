@@ -1,4 +1,4 @@
-const CACHE_NAME = "nakshatra-finder-v5";
+const CACHE_NAME = "nakshatra-finder-v6";
 const APP_SHELL = ["./", "index.html", "mudakku.html", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", (event) => {
