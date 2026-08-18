@@ -1,4 +1,4 @@
-const CACHE_NAME = "ugra-mahalakshmy-astrology-v11";
+const CACHE_NAME = "shri-ugra-mahalakshmy-astrology-v12";
 const APP_SHELL = ["./", "index.html", "mudakku.html", "yogi-avayogi.html", "nakshatra-details.html", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", (event) => {
