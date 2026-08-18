@@ -3,8 +3,8 @@
   "short_name": "Ugra Mahalakshmy",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f8eff1",
-  "theme_color": "#7A0019",
+  "background_color": "#f2f7f2",
+  "theme_color": "#0B5D1E",
   "icons": [
     {
       "src": "icon.svg",
