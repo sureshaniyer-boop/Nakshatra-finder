@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f5132">
+  <meta name="theme-color" content="#7A0019">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <title>Nakshatra Details Finder</title>
+  <title>Ugra Mahalakshmy Astrology — Nakshatra Details</title>
   <style>
-    :root{--ink:#17211c;--muted:#5d6b62;--line:#d9e3dc;--green:#0f5132;--gold:#d9a441;--soft:#f4f8f3;--panel:#fff;--place:#edf8f1;--food:#fff8e6;--snack:#fff2ee;--deity:#eef4ff;--tree:#f3eefb}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#eef4ef}
-    header{background:var(--green);color:#fff;border-bottom:5px solid var(--gold)}.header-inner{max-width:1280px;margin:0 auto;padding:18px 18px 0}h1{margin:0;font-size:24px}.subtitle{margin:6px 0 14px;font-size:13px;opacity:.9}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{display:inline-block;padding:10px 16px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.35);border-bottom:0;border-radius:8px 8px 0 0;font-weight:700;font-size:14px}.tab.active{background:#eef4ef;color:var(--green);border-color:#eef4ef}
-    main{max-width:1280px;margin:0 auto;padding:18px;display:grid;gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 10px rgba(20,40,30,.06);padding:16px}.input-row{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:16px;align-items:end}label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}select{width:100%;border:1px solid #c8d7ce;border-radius:6px;background:#fff;color:var(--ink);font:inherit;padding:10px}.legend{color:var(--muted);font-size:13px;line-height:1.5}.section-title{margin:0 0 12px;font-size:18px}
+    :root{--ink:#2a1219;--muted:#6f5860;--line:#ead7dc;--green:#7A0019;--gold:#d4af37;--soft:#fff7f8;--panel:#fff;--place:#f8e8ec;--food:#fff8e6;--snack:#fff2ee;--deity:#f7edf1;--tree:#f6eef5}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#f8eff1}
+    header{background:var(--green);color:#fff;border-bottom:5px solid var(--gold)}.header-inner{max-width:1280px;margin:0 auto;padding:18px 18px 0}h1{margin:0;font-size:24px}.subtitle{margin:6px 0 14px;font-size:13px;opacity:.9}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{display:inline-block;padding:10px 16px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.35);border-bottom:0;border-radius:8px 8px 0 0;font-weight:700;font-size:14px}.tab.active{background:#f8eff1;color:var(--green);border-color:#f8eff1}
+    main{max-width:1280px;margin:0 auto;padding:18px;display:grid;gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 10px rgba(70,10,25,.07);padding:16px}.input-row{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:16px;align-items:end}label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}select{width:100%;border:1px solid #dbc3ca;border-radius:6px;background:#fff;color:var(--ink);font:inherit;padding:10px}.legend{color:var(--muted);font-size:13px;line-height:1.5}.section-title{margin:0 0 12px;font-size:18px}
     .selected{margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}.selected span{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.selected strong{font-size:22px}.selected small{display:block;color:var(--muted);margin-top:4px}
     .result-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:8px;padding:14px;min-height:150px}.metric.location{background:var(--place)}.metric.food{background:var(--food)}.metric.snack{background:var(--snack)}.metric.deity{background:var(--deity)}.metric.tree{background:var(--tree)}.metric span{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}.metric strong{display:block;font-size:18px;line-height:1.45;overflow-wrap:anywhere}.note{background:#fff8e6;border:1px solid #ead39b;border-radius:8px;padding:12px;font-size:13px;line-height:1.55;color:#5f512d}footer{color:var(--muted);font-size:12px;padding:0 2px 10px}
     @media(max-width:1100px){.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric.tree{grid-column:1/-1}}
@@ -21,10 +21,9 @@
   </style>
 </head>
 <body>
-<header><div class="header-inner"><h1>Nakshatra Finder</h1><div class="subtitle">Vedic astrology reference tools</div><nav class="tabs"><a class="tab" href="index.html">7th &amp; 22nd Finder</a><a class="tab" href="mudakku.html">Mudakku Finder</a><a class="tab" href="yogi-avayogi.html">Yogi &amp; Avayogi</a><a class="tab active" href="nakshatra-details.html">Nakshatra Details</a></nav></div></header>
+<header><div class="header-inner"><h1>Ugra Mahalakshmy Astrology</h1><div class="subtitle">Vedic astrology reference tools</div><nav class="tabs"><a class="tab" href="index.html">7th &amp; 22nd Finder</a><a class="tab" href="mudakku.html">Mudakku Finder</a><a class="tab" href="yogi-avayogi.html">Yogi &amp; Avayogi</a><a class="tab active" href="nakshatra-details.html">Nakshatra Details</a></nav></div></header>
 <main>
   <section class="card"><div class="input-row"><div><label for="nakSelect">Select Nakshatra</label><select id="nakSelect"></select></div><div class="legend">Select any of the 27 Nakshatras to view the source-listed location, fruits/food, snacks/sweets, presiding deity and tree.</div></div></section>
-
   <section class="card"><h2 class="section-title">Nakshatra Associations</h2>
     <div class="selected"><span>Selected Nakshatra</span><strong id="nakName">-</strong><small id="nakNo">No: -</small></div>
     <div class="result-grid">
@@ -35,9 +34,8 @@
       <div class="metric tree"><span>5. Tree</span><strong id="tree">-</strong></div>
     </div>
   </section>
-
   <div class="note"><strong>Source note:</strong> These associations are transcribed from the supplied English translation of the 27-Nakshatra PDF. Source-specific regional terms are preserved rather than replaced with guessed equivalents.</div>
-  <footer>Nakshatra Details Finder • GitHub Pages</footer>
+  <footer>Ugra Mahalakshmy Astrology • Nakshatra Details Finder</footer>
 </main>
 <script>
 const details=[
