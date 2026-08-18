@@ -1,12 +1,12 @@
 {
-  "name": "Nakshatra 7th and 22nd Finder",
-  "short_name": "Nakshatra Finder",
-  "description": "Tamil nakshatra 7th and 22nd finder with Tara Bala, body part, and sex reference.",
+  "name": "Ugra Mahalakshmy Astrology",
+  "short_name": "Ugra Mahalakshmy",
+  "description": "Vedic astrology reference tools for Nakshatra calculations, Mudakku, Yogi and Avayogi, and Nakshatra associations.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#eef4ef",
-  "theme_color": "#0f5132",
+  "background_color": "#f8eff1",
+  "theme_color": "#7A0019",
   "orientation": "portrait",
   "icons": [
     {
