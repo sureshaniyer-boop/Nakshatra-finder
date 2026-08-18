@@ -22,15 +22,15 @@
 <body>
 <header><div class="header-inner"><h1>Nakshatra Finder</h1><div class="subtitle">Vedic astrology reference tools</div><nav class="tabs"><a class="tab" href="index.html">7th &amp; 22nd Finder</a><a class="tab active" href="mudakku.html">Mudakku Finder</a></nav></div></header>
 <main>
-  <section class="card"><div class="input-row"><div><label for="sunSelect">Select Sun's Nakshatra</label><select id="sunSelect"></select></div><div class="legend">Choose the nakshatra occupied by the Sun. The corresponding Mudakku Nakshatra, Rasi, planetary lord and Parihara Temple will be displayed below.</div></div></section>
+  <section class="card"><div class="input-row"><div><label for="sunSelect">Select Sun's Nakshatra</label><select id="sunSelect"></select></div><div class="legend">Choose the nakshatra occupied by the Sun. The corresponding Mudakku Nakshatra, Rasi, planetary lord and the Parihara Temple assigned to that Sun Nakshatra will be displayed below.</div></div></section>
   <section class="card"><h2 class="section-title">Mudakku Result</h2><div class="result-grid">
     <div class="metric"><span>1. Sun Nakshatra</span><strong id="sunName">-</strong><small id="sunNo">No: -</small></div>
     <div class="metric highlight"><span>2. Mudakku Nakshatra</span><strong id="mudakkuName">-</strong><small id="mudakkuTamil">-</small></div>
     <div class="metric"><span>3. Mudakku Rasi</span><strong id="mudakkuRasi">-</strong></div>
     <div class="metric"><span>4. Mudakku Lord</span><strong id="mudakkuLord">-</strong></div>
-    <div class="metric temple"><span>5. Mudakku Parihara Temple</span><div id="mudakkuTemple" class="temple-name">-</div><div class="parihara-note"><strong>Parihara Instructions</strong><ol><li>Must go on Mudakku Natchatiram day.</li><li>Must go on Jenma month based on Tamil calendar.</li><li>Tengga palam &amp; Archanai.</li><li>Don't bring anything from Mudakku Natchatiram temple including Thiruneer.</li></ol></div></div>
+    <div class="metric temple"><span>5. Mudakku Parihara Temple (Based on Sun Nakshatra)</span><div id="mudakkuTemple" class="temple-name">-</div><div class="parihara-note"><strong>Parihara Instructions</strong><ol><li>Must go on Mudakku Natchatiram day.</li><li>Must go on Jenma month based on Tamil calendar.</li><li>Tengga palam &amp; Archanai.</li><li>Don't bring anything from Mudakku Natchatiram temple including Thiruneer.</li></ol></div></div>
   </div></section>
-  <div class="note"><strong>Calculation basis:</strong> The selected value is the Sun's placement. The Parihara Temple is matched to the resulting Mudakku Nakshatra.</div>
+  <div class="note"><strong>Calculation basis:</strong> The selected value is the Sun's placement. Mudakku Nakshatra, Rasi and Lord come from the Mudakku mapping. The Parihara Temple is matched directly to the selected Sun Nakshatra.</div>
   <footer>Mudakku Nakshatra Finder • GitHub Pages</footer>
 </main>
 <script>
@@ -67,38 +67,38 @@ const mudakkuMapping=[
   {name:"Uttara Phalguni",tamil:"Uthiram",rasi:"Leo (Simha)",lord:"Sun"}
 ];
 const templeByNakshatra={
-  "Ashwini":["Chitra Guptan Kovil, Kanchipuram","Thiruvedagam Shiva Temple, near Madurai"],
-  "Bharani":["Durgai inside Tiruvannamalai Kovil"],
-  "Krittika":["Vadapalani Murugan Temple, Chennai"],
-  "Rohini":["Pandava Thootha Perumal Temple, Kanchipuram"],
+  "Ashwini":["Chitra Guptan Kovil, Kanchipuram","Thiruvedagam Shiva Temple, Nearby Madurai"],
+  "Bharani":["Tiruvannamalai Kovil Ulleh Erukkum Durgai"],
+  "Krittika":["Vadapalani Murugan, Chennai"],
+  "Rohini":["Paandava Thootha Perumal, Kanchipuram"],
   "Mrigashira":["Kundrakudi Murugan Temple"],
-  "Ardra":["Thillai Kali Temple, Chidambaram"],
-  "Punarvasu":["Nellaiappar Temple, Tirunelveli"],
+  "Ardra":["Thillai Kali, Chidambaram"],
+  "Punarvasu":["Thirunelveli Nellaiappan"],
   "Pushya":["Arulmigu Chakrapani Swami Temple, Kumbakonam"],
-  "Ashlesha":["Shri Mariamman Kovil, Punnainallur, Thanjavur"],
-  "Magha":["Pillaiyar Patti Karpaga Vinayagar Temple"],
-  "Poorva Phalguni":["Kattu Veera Anjaneyar Kovil, Dharapuram","Sri Sookshmapureeswarar (Mangaleswarar) Temple, Sirukudi"],
-  "Uttara Phalguni":["Suchindram Shree Thanumalayan Swamy Temple, Kanyakumari"],
-  "Hasta":["Vedapureeswarar Temple, Cheyyar"],
-  "Chitra":["Chithirai Ratha Vallabha Perumal Kovil"],
-  "Swati":["Marudhamalai Murugan Temple, Coimbatore"],
-  "Vishakha":["Thirumalai Kumaraswamy Kovil, Tenkasi"],
-  "Anuradha":["Shiva Temple, Thirukazhukundram"],
-  "Jyeshtha":["Narasimhar Kovil, Ukkadam, Coimbatore","Thirumuruganatha Swamy Temple, Poondi"],
+  "Ashlesha":["Shri Mariamman Kovil Punnainallur, Thanjavur"],
+  "Magha":["Pillaiyar Patti Karpaga Vinayagar"],
+  "Poorva Phalguni":["Kattu Veera Anjaneyar Kovil, Dharapuram","Sri Sookshmapureeswarar Temple, also known as Mangaleswarar, Sirukudi"],
+  "Uttara Phalguni":["Suchindram Shree Thanumalayan Swamy Temple, Kanya Kumari"],
+  "Hasta":["Cheiyaru, Veetha Puriswarar Kovil"],
+  "Chitra":["Chitthirai Ratha Vallaba Perumal Kovil"],
+  "Swati":["Coimbatore Marutha Malai Murugan Temple"],
+  "Vishakha":["Thenkasi, Tirumalai Kumara Swami Kovil"],
+  "Anuradha":["Tiru Kala Kundram, Sivan Kovil"],
+  "Jyeshtha":["Coimbatore, Ukkadam Narasimhar Kovil","Thirumuruganatha Swamy Temple, Poondi"],
   "Mula":["Sri Karumbeswarar Temple, Thirukkanur, Thanjavur"],
-  "Poorva Ashada":["Kalyana Pasupatheeswarar Temple, Karur"],
-  "Uttara Ashada":["Meenakshi Amman Temple, Madurai - Ukkurili Vinayagar"],
-  "Shravana":["Athi Moola Perumal Temple, Kabisthalam, Thanjavur"],
-  "Dhanishta":["Anantha Padmanabha Swamy Temple, Adyar, Chennai"],
-  "Satabhisha":["Arthanareeswarar Temple, Tiruchengode"],
-  "Poorva Bhadrapada":["Sugavaneshwarar Temple, Salem"],
-  "Uttara Bhadrapada":["Ramanathaswamy Temple, Rameswaram"],
-  "Revathi":["18th Padi Karuppar, Madurai","Sri Parithiappar Temple, Thanjavur"]
+  "Poorva Ashada":["Karur Kalyana Pasupathiswarar Kovil"],
+  "Uttara Ashada":["Mathurai Meenakshi Kovil, Ukkurili Vinayagar"],
+  "Shravana":["Thanjavoor, Kabistalam Athi Moola Perumal"],
+  "Dhanishta":["Chennai, Adyar - Aanantha Padmanaba Swamy Kovil"],
+  "Satabhisha":["Thiruchenkodu, Artha Natheswarar Kovil"],
+  "Poorva Bhadrapada":["Salem, Sugavaneshwarar Temple"],
+  "Uttara Bhadrapada":["Rameshwaram, Ramanatha Swamy"],
+  "Revathi":["18th Padi Karupar, Madurai","Sri Parithiappar Temple, Thanjavur"]
 };
 const select=document.getElementById("sunSelect"),byId=id=>document.getElementById(id);
 sunNakshatras.forEach((n,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=`${n.tamil} (${n.english})`;select.appendChild(o)});
 function templeHtml(temples){return temples.map((t,i)=>`${i?'<span class="temple-or">or</span>':''}${t}`).join("")}
-function render(){const i=Number(select.value),sun=sunNakshatras[i],m=mudakkuMapping[i],temples=templeByNakshatra[m.name]||["Temple mapping not available"];byId("sunName").textContent=`${sun.tamil} (${sun.english})`;byId("sunNo").textContent=`No: ${i+1}`;byId("mudakkuName").textContent=m.name;byId("mudakkuTamil").textContent=m.tamil!==m.name?m.tamil:"";byId("mudakkuRasi").textContent=m.rasi;byId("mudakkuLord").textContent=m.lord;byId("mudakkuTemple").innerHTML=templeHtml(temples)}
+function render(){const i=Number(select.value),sun=sunNakshatras[i],m=mudakkuMapping[i],temples=templeByNakshatra[sun.english]||["Temple mapping not available"];byId("sunName").textContent=`${sun.tamil} (${sun.english})`;byId("sunNo").textContent=`No: ${i+1}`;byId("mudakkuName").textContent=m.name;byId("mudakkuTamil").textContent=m.tamil!==m.name?m.tamil:"";byId("mudakkuRasi").textContent=m.rasi;byId("mudakkuLord").textContent=m.lord;byId("mudakkuTemple").innerHTML=templeHtml(temples)}
 select.value="0";select.addEventListener("change",render);render();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
 </script>
