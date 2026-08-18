@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f5132">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Nakshatra Details Finder</title>
+  <style>
+    :root{--ink:#17211c;--muted:#5d6b62;--line:#d9e3dc;--green:#0f5132;--gold:#d9a441;--soft:#f4f8f3;--panel:#fff;--place:#edf8f1;--food:#fff8e6;--snack:#fff2ee;--deity:#eef4ff;--tree:#f3eefb}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#eef4ef}
+    header{background:var(--green);color:#fff;border-bottom:5px solid var(--gold)}.header-inner{max-width:1280px;margin:0 auto;padding:18px 18px 0}h1{margin:0;font-size:24px}.subtitle{margin:6px 0 14px;font-size:13px;opacity:.9}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{display:inline-block;padding:10px 16px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.35);border-bottom:0;border-radius:8px 8px 0 0;font-weight:700;font-size:14px}.tab.active{background:#eef4ef;color:var(--green);border-color:#eef4ef}
+    main{max-width:1280px;margin:0 auto;padding:18px;display:grid;gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 10px rgba(20,40,30,.06);padding:16px}.input-row{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:16px;align-items:end}label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}select{width:100%;border:1px solid #c8d7ce;border-radius:6px;background:#fff;color:var(--ink);font:inherit;padding:10px}.legend{color:var(--muted);font-size:13px;line-height:1.5}.section-title{margin:0 0 12px;font-size:18px}
+    .selected{margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}.selected span{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.selected strong{font-size:22px}.selected small{display:block;color:var(--muted);margin-top:4px}
+    .result-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:8px;padding:14px;min-height:150px}.metric.location{background:var(--place)}.metric.food{background:var(--food)}.metric.snack{background:var(--snack)}.metric.deity{background:var(--deity)}.metric.tree{background:var(--tree)}.metric span{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}.metric strong{display:block;font-size:18px;line-height:1.45;overflow-wrap:anywhere}.note{background:#fff8e6;border:1px solid #ead39b;border-radius:8px;padding:12px;font-size:13px;line-height:1.55;color:#5f512d}footer{color:var(--muted);font-size:12px;padding:0 2px 10px}
+    @media(max-width:1100px){.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric.tree{grid-column:1/-1}}
+    @media(max-width:820px){.header-inner{padding:14px 10px 0}main{padding:10px}.input-row,.result-grid{grid-template-columns:1fr}.metric.tree{grid-column:auto}.tab{flex:1;text-align:center;padding:10px 8px}}
+  </style>
+</head>
+<body>
+<header><div class="header-inner"><h1>Nakshatra Finder</h1><div class="subtitle">Vedic astrology reference tools</div><nav class="tabs"><a class="tab" href="index.html">7th &amp; 22nd Finder</a><a class="tab" href="mudakku.html">Mudakku Finder</a><a class="tab" href="yogi-avayogi.html">Yogi &amp; Avayogi</a><a class="tab active" href="nakshatra-details.html">Nakshatra Details</a></nav></div></header>
+<main>
+  <section class="card"><div class="input-row"><div><label for="nakSelect">Select Nakshatra</label><select id="nakSelect"></select></div><div class="legend">Select any of the 27 Nakshatras to view the source-listed location, fruits/food, snacks/sweets, presiding deity and tree.</div></div></section>
+
+  <section class="card"><h2 class="section-title">Nakshatra Associations</h2>
+    <div class="selected"><span>Selected Nakshatra</span><strong id="nakName">-</strong><small id="nakNo">No: -</small></div>
+    <div class="result-grid">
+      <div class="metric location"><span>1. Location</span><strong id="location">-</strong></div>
+      <div class="metric food"><span>2. Fruits / Food</span><strong id="food">-</strong></div>
+      <div class="metric snack"><span>3. Snacks / Sweets</span><strong id="snack">-</strong></div>
+      <div class="metric deity"><span>4. Presiding Deity</span><strong id="deity">-</strong></div>
+      <div class="metric tree"><span>5. Tree</span><strong id="tree">-</strong></div>
+    </div>
+  </section>
+
+  <div class="note"><strong>Source note:</strong> These associations are transcribed from the supplied English translation of the 27-Nakshatra PDF. Source-specific regional terms are preserved rather than replaced with guessed equivalents.</div>
+  <footer>Nakshatra Details Finder • GitHub Pages</footer>
+</main>
+<script>
+const details=[
+  {n:1,name:"Aswini",location:"Capital city; hospital",food:"Cashew nuts; cashew fruit; pineapple",snack:"Murukku",deity:"Saraswati Devi",tree:"Etti tree"},
+  {n:2,name:"Bharani",location:"Under a tree; bedroom",food:"Indian gooseberry (nellikai); gooseberry pickle",snack:"Appam",deity:"Durga Devi (Ashta Bhuja / eight-armed form)",tree:"Indian gooseberry tree"},
+  {n:3,name:"Karthigai",location:"Forest; salon/barber shop",food:"Dates",snack:"Vadai",deity:"Lord Murugan",tree:"Athi (fig) tree"},
+  {n:4,name:"Rohini",location:"Restaurant; temple-chariot stand (theradi)",food:"Jamun fruit; milk-based food; palkova",snack:"Jalebi",deity:"Lord Krishna",tree:"Jamun tree"},
+  {n:5,name:"Mrigashirsham",location:"Under the bed/cot; water body",food:"Coconut",snack:"Halwa",deity:"Lord Shiva",tree:"Karungali tree"},
+  {n:6,name:"Thiruvathirai",location:"Music and dance hall; Bharatanatyam",food:"Banana",snack:"Pori (puffed rice)",deity:"Lord Shiva",tree:"Sengkarungali tree"},
+  {n:7,name:"Punarpoosam",location:"Rice shop; sugarcane field",food:"Sugarcane; juice",snack:"Payasam",deity:"Lord Rama",tree:"Bamboo"},
+  {n:8,name:"Poosam",location:"Grass-covered ground; sports arena",food:"Apple; wood apple (vilam fruit)",snack:"Payasam",deity:"Dakshinamurthy",tree:"Arasa / sacred fig (peepal) tree"},
+  {n:9,name:"Ayilyam",location:"Garbage bin; bundle of dirty clothes",food:"Drumstick; soup; leafy greens",snack:"Laddu",deity:"Adiseshan",tree:"Punnai tree"},
+  {n:10,name:"Magam",location:"Paddy granary; canal",food:"Ash gourd / water pumpkin; mango; leafy greens",snack:"Adhirasam",deity:"Surya Bhagavan (Sun God)",tree:"Banyan tree"},
+  {n:11,name:"Pooram",location:"House",food:"Lemon; fruit; rice; juice",snack:"Thick curd (source: 'thayir katti')",deity:"Andal",tree:"Jackfruit tree"},
+  {n:12,name:"Uthiram",location:"Reservoir; roof/structural beam (uthiram)",food:"Pomegranate",snack:"Ilai vadagam (leaf vadagam)",deity:"Mahalakshmi",tree:"Oleander (alari) tree"},
+  {n:13,name:"Hastham",location:"Wooden objects; waterside",food:"Orange",snack:"Honeycomb",deity:"Gayathri Devi",tree:"Athi or Vel tree"},
+  {n:14,name:"Chithirai",location:"Paddy field; textile shop",food:"Papaya; sweet lime (sathukudi); sakkarai pongal",snack:"Fruit juice",deity:"Chakrathalwar",tree:"Vilvam / bael tree"},
+  {n:15,name:"Swathi",location:"Cotton field; shop",food:"Honey; raisins; coffee",snack:"Curd cream/skin (source: 'thayir edu')",deity:"Narasimha Murthy",tree:"Marudha tree"},
+  {n:16,name:"Visagam",location:"Courtyard; open space",food:"Sugar; rock candy; sapota (chikoo)",snack:"Butter",deity:"Lord Murugan",tree:"Vilam tree"},
+  {n:17,name:"Anusham",location:"Desert; windmill",food:"Sapota; nungu (ice apple); ven pongal",snack:"Palanthi (source term transliterated)",deity:"Lakshmi Narayana",tree:"Magizham tree"},
+  {n:18,name:"Kettai",location:"Compound wall; toilet/restroom",food:"Vallarai (gotu kola); cherry fruit",snack:"Therattipal (milk sweet)",deity:"Varaha Perumal",tree:"Pirayan tree"},
+  {n:19,name:"Moolam",location:"Cattle shed; barn; livestock pen",food:"Guava",snack:"Pepper vadai",deity:"Anjaneyar (Hanuman)",tree:"Mango tree"},
+  {n:20,name:"Pooradam",location:"Roof; open terrace",food:"Cucumber; mushroom",snack:"Dates",deity:"Jambukeswarar",tree:"Vanji tree"},
+  {n:21,name:"Uthradam",location:"Vacant plot; washing machine",food:"Jackfruit",snack:"Kozhukattai",deity:"Lord Vinayaka (Ganesha)",tree:"Jackfruit tree"},
+  {n:22,name:"Thiruvonam",location:"Temple; measuring scale/ruler",food:"Betel leaf and areca nut; custard apple",snack:"Idli",deity:"Hayagriva",tree:"Erukku (Calotropis) tree"},
+  {n:23,name:"Avittam",location:"Spinning mill; sewing machine",food:"Apple; tomato",snack:"Dosa",deity:"Anantha Sayana Perumal",tree:"Vanni tree"},
+  {n:24,name:"Sadhayam",location:"Oil press; oil mill",food:"Black grapes",snack:"Aviyal",deity:"Mrityunjayeswarar",tree:"Kadamba tree"},
+  {n:25,name:"Poorattadhi",location:"Bank; road; jewellery shop",food:"Mango",snack:"Varuval (fried preparation)",deity:"Ekapadar",tree:"Thema tree"},
+  {n:26,name:"Uthirattadhi",location:"Kitchen; electricity",food:"Pineapple",snack:"Aval (flattened rice)",deity:"Maha Easwarar",tree:"Neem tree (source says 'veppilai maram')"},
+  {n:27,name:"Revathi",location:"Park; cremation ground",food:"Jujube / ilanthai fruit; coriander rice",snack:"Sugarcane juice",deity:"Aranganathan",tree:"Iluppai (mahua) tree"}
+];
+const select=document.getElementById("nakSelect"),byId=id=>document.getElementById(id);
+details.forEach((d,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=`${d.name} (${d.n})`;select.appendChild(o)});
+function render(){const d=details[Number(select.value)];byId("nakName").textContent=d.name;byId("nakNo").textContent=`No: ${d.n}`;byId("location").textContent=d.location;byId("food").textContent=d.food;byId("snack").textContent=d.snack;byId("deity").textContent=d.deity;byId("tree").textContent=d.tree}
+select.value="0";select.addEventListener("change",render);render();
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
+</script>
+</body></html>
