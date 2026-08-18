@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <title>Nakshatra 7th and 22nd Finder</title>
+  <title>Nakshatra 7th, 22nd & Mudakku Finder</title>
   <style>
     :root {
       --ink: #17211c;
@@ -19,6 +19,7 @@
       --gold: #d9a441;
       --soft: #f4f8f3;
       --warn: #fff4d1;
+      --blue: #e8f5ff;
       --panel: #ffffff;
     }
 
@@ -56,6 +57,7 @@
 
     .input-band,
     .result-grid,
+    .mudakku-card,
     .table-card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -95,6 +97,24 @@
       gap: 10px;
     }
 
+    .mudakku-card {
+      padding: 14px;
+    }
+
+    .mudakku-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .mudakku-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
     .metric {
       background: var(--soft);
       border: 1px solid var(--line);
@@ -106,6 +126,11 @@
     .metric.highlight {
       background: var(--warn);
       border-color: #ebcf7c;
+    }
+
+    .metric.mudakku-highlight {
+      background: #edf8f1;
+      border-color: #b9dac5;
     }
 
     .metric span {
@@ -148,6 +173,7 @@
     .legend {
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.45;
     }
 
     .table-wrap {
@@ -211,6 +237,11 @@
       border-color: #bdddf5;
     }
 
+    .pill.green {
+      background: #edf8f1;
+      border-color: #b9dac5;
+    }
+
     footer {
       color: var(--muted);
       font-size: 12px;
@@ -226,11 +257,13 @@
         grid-template-columns: 1fr;
       }
 
-      .result-grid {
+      .result-grid,
+      .mudakku-grid {
         grid-template-columns: 1fr;
       }
 
-      .table-head {
+      .table-head,
+      .mudakku-head {
         display: block;
       }
 
@@ -242,7 +275,7 @@
 </head>
 <body>
   <header>
-    <h1>Nakshatra 7th and 22nd Finder</h1>
+    <h1>Nakshatra 7th, 22nd & Mudakku Finder</h1>
   </header>
 
   <main>
@@ -252,7 +285,7 @@
         <select id="nakshatraSelect"></select>
       </div>
       <div class="legend">
-        The table follows the 27-position cycle from the selected nakshatra, with Tara Bala, body part, and sex reference.
+        The table follows the 27-position cycle from the selected nakshatra. For Mudakku calculation, the selected nakshatra is treated as the Sun's placement.
       </div>
     </section>
 
@@ -271,6 +304,33 @@
         <span>22nd Nakshatra From Input</span>
         <strong id="twentySecondName">-</strong>
         <small id="twentySecondNo">No: -</small>
+      </div>
+    </section>
+
+    <section class="mudakku-card">
+      <div class="mudakku-head">
+        <h2>Mudakku Nakshatra</h2>
+        <div class="legend"><span class="pill green">Based on Sun's Nakshatra</span></div>
+      </div>
+      <div class="mudakku-grid">
+        <div class="metric">
+          <span>Sun Nakshatra</span>
+          <strong id="mudakkuSun">-</strong>
+          <small id="mudakkuSunNo">No: -</small>
+        </div>
+        <div class="metric mudakku-highlight">
+          <span>Mudakku Nakshatra</span>
+          <strong id="mudakkuName">-</strong>
+          <small id="mudakkuTamil">-</small>
+        </div>
+        <div class="metric">
+          <span>Mudakku Rasi</span>
+          <strong id="mudakkuRasi">-</strong>
+        </div>
+        <div class="metric">
+          <span>Mudakku Lord</span>
+          <strong id="mudakkuLord">-</strong>
+        </div>
       </div>
     </section>
 
@@ -301,7 +361,7 @@
     </section>
 
     <footer>
-      Static HTML version converted from Nakshatra_7th_22nd_Tamil_Input V2.0.xlsx for GitHub Pages.
+      Static HTML Nakshatra Finder with 7th, 22nd, Tara Bala and Mudakku Nakshatra calculations for GitHub Pages.
     </footer>
   </main>
 
@@ -334,6 +394,36 @@
       "Poorattathi",
       "Uthirattathi",
       "Revathi"
+    ];
+
+    const mudakkuMapping = [
+      { name: "Poorva Phalguni", tamil: "Pooram", rasi: "Leo (Simha)", lord: "Sun" },
+      { name: "Magha", tamil: "Magam", rasi: "Leo (Simha)", lord: "Sun" },
+      { name: "Ashlesha", tamil: "Ayilyam", rasi: "Cancer (Karka)", lord: "Moon" },
+      { name: "Pushya", tamil: "Poosam", rasi: "Cancer (Karka)", lord: "Moon" },
+      { name: "Punarvasu", tamil: "Punarpoosam", rasi: "Gemini (Mithuna)", lord: "Mercury" },
+      { name: "Ardra", tamil: "Thiruvadirai", rasi: "Gemini (Mithuna)", lord: "Mercury" },
+      { name: "Mrigashira", tamil: "Mrigashira", rasi: "Taurus (Rishaba)", lord: "Venus" },
+      { name: "Rohini", tamil: "Rohini", rasi: "Taurus (Rishaba)", lord: "Venus" },
+      { name: "Krittika", tamil: "Krittika", rasi: "Aries (Mesha)", lord: "Mars" },
+      { name: "Bharani", tamil: "Bharani", rasi: "Aries (Mesha)", lord: "Mars" },
+      { name: "Ashwini", tamil: "Ashwini", rasi: "Aries (Mesha)", lord: "Mars" },
+      { name: "Revathi", tamil: "Revathi", rasi: "Pisces (Meena)", lord: "Jupiter" },
+      { name: "Uttara Bhadrapada", tamil: "Uthiratathi", rasi: "Pisces (Meena)", lord: "Jupiter" },
+      { name: "Poorva Bhadrapada", tamil: "Pooraratathi", rasi: "Aquarius (Kumbha)", lord: "Saturn" },
+      { name: "Satabhisha", tamil: "Sadayam", rasi: "Aquarius (Kumbha)", lord: "Saturn" },
+      { name: "Dhanishta", tamil: "Avittam", rasi: "Capricorn (Makara)", lord: "Saturn" },
+      { name: "Shravana", tamil: "Tiruvonam", rasi: "Capricorn (Makara)", lord: "Saturn" },
+      { name: "Uttara Ashada", tamil: "Uthiradam", rasi: "Sagittarius (Dhanus)", lord: "Jupiter" },
+      { name: "Poorva Ashada", tamil: "Pooradam", rasi: "Sagittarius (Dhanus)", lord: "Jupiter" },
+      { name: "Mula", tamil: "Moolam", rasi: "Sagittarius (Dhanus)", lord: "Jupiter" },
+      { name: "Jyeshtha", tamil: "Kettai", rasi: "Scorpio (Vrischika)", lord: "Mars" },
+      { name: "Anuradha", tamil: "Anusham", rasi: "Scorpio (Vrischika)", lord: "Mars" },
+      { name: "Vishakha", tamil: "Vishakha", rasi: "Libra (Thula)", lord: "Venus" },
+      { name: "Swati", tamil: "Swati", rasi: "Libra (Thula)", lord: "Venus" },
+      { name: "Chitra", tamil: "Chitra", rasi: "Virgo (Kanya)", lord: "Mercury" },
+      { name: "Hasta", tamil: "Hastham", rasi: "Virgo (Kanya)", lord: "Mercury" },
+      { name: "Uttara Phalguni", tamil: "Uthiram", rasi: "Leo (Simha)", lord: "Sun" }
     ];
 
     const taraCycle = [
@@ -429,6 +519,7 @@
       const inputNo = Number(select.value);
       const seventhNo = nakshatraNoFromPosition(inputNo, 7);
       const twentySecondNo = nakshatraNoFromPosition(inputNo, 22);
+      const mudakku = mudakkuMapping[inputNo - 1];
 
       byId("inputName").textContent = nakshatras[inputNo - 1];
       byId("inputNo").textContent = `No: ${inputNo}`;
@@ -436,6 +527,13 @@
       byId("seventhNo").textContent = `No: ${seventhNo}`;
       byId("twentySecondName").textContent = nakshatras[twentySecondNo - 1];
       byId("twentySecondNo").textContent = `No: ${twentySecondNo}`;
+
+      byId("mudakkuSun").textContent = nakshatras[inputNo - 1];
+      byId("mudakkuSunNo").textContent = `No: ${inputNo}`;
+      byId("mudakkuName").textContent = mudakku.name;
+      byId("mudakkuTamil").textContent = mudakku.tamil ? `Tamil: ${mudakku.tamil}` : "";
+      byId("mudakkuRasi").textContent = mudakku.rasi;
+      byId("mudakkuLord").textContent = mudakku.lord;
 
       cycleBody.innerHTML = "";
       for (let position = 1; position <= 27; position += 1) {
