@@ -22,15 +22,15 @@
 <body>
 <header><div class="header-inner"><h1>Shri Ugra Mahalakshmy Astrology</h1><div class="subtitle">Vedic astrology reference tools</div><nav class="tabs"><a class="tab" href="index.html">7th &amp; 22nd Finder</a><a class="tab active" href="mudakku.html">Mudakku Finder</a><a class="tab" href="yogi-avayogi.html">Yogi &amp; Avayogi</a><a class="tab" href="nakshatra-details.html">Nakshatra Details</a></nav></div></header>
 <main>
-  <section class="card"><div class="input-row"><div><label for="sunSelect">Select Sun's Nakshatra</label><select id="sunSelect"></select></div><div class="legend">Choose the nakshatra occupied by the Sun. The corresponding Mudakku Nakshatra, Rasi, planetary lord and the Parihara Temple assigned to that Sun Nakshatra will be displayed below.</div></div></section>
+  <section class="card"><div class="input-row"><div><label for="sunSelect">Select Sun's Nakshatra</label><select id="sunSelect"></select></div><div class="legend">Choose the nakshatra occupied by the Sun. The corresponding Mudakku Nakshatra, Rasi, planetary lord and the Parihara Temple assigned to that Mudakku Nakshatra will be displayed below.</div></div></section>
   <section class="card"><h2 class="section-title">Mudakku Result</h2><div class="result-grid">
     <div class="metric"><span>1. Sun Nakshatra</span><strong id="sunName">-</strong><small id="sunNo">No: -</small></div>
     <div class="metric highlight"><span>2. Mudakku Nakshatra</span><strong id="mudakkuName">-</strong><small id="mudakkuTamil">-</small></div>
     <div class="metric"><span>3. Mudakku Rasi</span><strong id="mudakkuRasi">-</strong></div>
     <div class="metric"><span>4. Mudakku Lord</span><strong id="mudakkuLord">-</strong></div>
-    <div class="metric temple"><span>5. Mudakku Parihara Temple (Based on Sun Nakshatra)</span><div id="mudakkuTemple" class="temple-name">-</div><div class="parihara-note"><strong>Parihara Instructions</strong><ol><li>Must go on Mudakku Natchatiram day.</li><li>Must go on Jenma month based on Tamil calendar.</li><li>Tengga palam &amp; Archanai.</li><li>Don't bring anything from Mudakku Natchatiram temple including Thiruneer.</li></ol></div></div>
+    <div class="metric temple"><span>5. Mudakku Parihara Temple (Based on Mudakku Nakshatra)</span><div id="mudakkuTemple" class="temple-name">-</div><div class="parihara-note"><strong>Parihara Instructions</strong><ol><li>Must go on Mudakku Natchatiram day.</li><li>Must go on Jenma month based on Tamil calendar.</li><li>Tengga palam &amp; Archanai.</li><li>Don't bring anything from Mudakku Natchatiram temple including Thiruneer.</li></ol></div></div>
   </div></section>
-  <div class="note"><strong>Calculation basis:</strong> The selected value is the Sun's placement. Mudakku Nakshatra, Rasi and Lord come from the Mudakku mapping. The Parihara Temple is matched directly to the selected Sun Nakshatra.</div>
+  <div class="note"><strong>Calculation basis:</strong> The selected value is the Sun's placement. Mudakku Nakshatra, Rasi and Lord come from the Mudakku mapping. The Parihara Temple is matched to the resulting Mudakku Nakshatra.</div>
   <footer>Shri Ugra Mahalakshmy Astrology • Mudakku Nakshatra Finder</footer>
 </main>
 <script>
@@ -77,7 +77,7 @@ const templeByNakshatra={
   "Pushya":["Arulmigu Chakrapani Swami Temple, Kumbakonam"],
   "Ashlesha":["Shri Mariamman Kovil Punnainallur, Thanjavur"],
   "Magha":["Pillaiyar Patti Karpaga Vinayagar"],
-  "Poorva Phalguni":["Kattu Veera Anjaneyar Kovil, Dharapuram","Sri Sookshmapureeswarar Temple, also known as Mangaleswarar, Sirukudi"],
+  "Poorva Phalguni":["Kattu Veera Anjaneyar Temple, Dharapuram","Thiruvedagam Shiva Temple, Nearby Madurai"],
   "Uttara Phalguni":["Suchindram Shree Thanumalayan Swamy Temple, Kanya Kumari"],
   "Hasta":["Cheiyaru, Veetha Puriswarar Kovil"],
   "Chitra":["Chitthirai Ratha Vallaba Perumal Kovil"],
@@ -98,7 +98,7 @@ const templeByNakshatra={
 const select=document.getElementById("sunSelect"),byId=id=>document.getElementById(id);
 sunNakshatras.forEach((n,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=`${n.tamil} (${n.english})`;select.appendChild(o)});
 function templeHtml(temples){return temples.map((t,i)=>`${i?'<span class="temple-or">or</span>':''}${t}`).join("")}
-function render(){const i=Number(select.value),sun=sunNakshatras[i],m=mudakkuMapping[i],temples=templeByNakshatra[sun.english]||["Temple mapping not available"];byId("sunName").textContent=`${sun.tamil} (${sun.english})`;byId("sunNo").textContent=`No: ${i+1}`;byId("mudakkuName").textContent=m.name;byId("mudakkuTamil").textContent=m.tamil!==m.name?m.tamil:"";byId("mudakkuRasi").textContent=m.rasi;byId("mudakkuLord").textContent=m.lord;byId("mudakkuTemple").innerHTML=templeHtml(temples)}
+function render(){const i=Number(select.value),sun=sunNakshatras[i],m=mudakkuMapping[i],temples=templeByNakshatra[m.name]||["Temple mapping not available"];byId("sunName").textContent=`${sun.tamil} (${sun.english})`;byId("sunNo").textContent=`No: ${i+1}`;byId("mudakkuName").textContent=m.name;byId("mudakkuTamil").textContent=m.tamil!==m.name?m.tamil:"";byId("mudakkuRasi").textContent=m.rasi;byId("mudakkuLord").textContent=m.lord;byId("mudakkuTemple").innerHTML=templeHtml(temples)}
 select.value="0";select.addEventListener("change",render);render();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
 </script>
