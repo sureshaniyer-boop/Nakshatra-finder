@@ -1,5 +1,5 @@
-const CACHE_NAME = "shri-ugra-mahalakshmy-astrology-v13";
-const APP_SHELL = ["./", "index.html", "mudakku.html", "yogi-avayogi.html", "nakshatra-details.html", "manifest.webmanifest", "icon.svg"];
+const CACHE_NAME = "shri-ugra-mahalakshmy-astrology-v14";
+const APP_SHELL = ["./", "index.html", "mudakku.html", "yogi-avayogi.html", "nakshatra-details.html", "thithi.html", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
